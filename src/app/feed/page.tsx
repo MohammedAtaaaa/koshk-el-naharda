@@ -62,9 +62,10 @@ export default function FeedPage() {
       .catch(() => {});
 
     let channel: ReturnType<ReturnType<typeof createClient>["channel"]> | undefined;
+    let supabaseClient: ReturnType<typeof createClient> | undefined;
     try {
-      const supabase = createClient();
-      channel = supabase
+      supabaseClient = createClient();
+      channel = supabaseClient
         .channel("feed-realtime")
         .on(
           "postgres_changes",
@@ -95,9 +96,8 @@ export default function FeedPage() {
 
     return () => {
       cancelled = true;
-      if (channel) {
-        const supabase = createClient();
-        supabase.removeChannel(channel);
+      if (channel && supabaseClient) {
+        supabaseClient.removeChannel(channel);
       }
     };
   }, []);

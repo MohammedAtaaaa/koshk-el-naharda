@@ -10,7 +10,7 @@ const SYSTEM_PROMPT = `أنت عم حسن، صاحب كشك جرايد وحلو�
 - دافي وحميمي زي ما بتتكلم مع جيرانك في الحارة
 - مفيش ألفاظ خارجة أو محتوى غير لائق`;
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("authorization");
     const cronSecret = process.env.CRON_SECRET;
